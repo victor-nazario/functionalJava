@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +38,9 @@ public class StringsCompAndFilters {
             .sorted(Comparator.comparing(Person::getName))
             .collect(Collectors.toList());
 
+    static final Function<Person, Integer> byAge = Person::getAge;
+    static final Function<Person, String> byName = Person::getName;
+
     private static void printPeople(final String message, final List<Person> list){
         System.out.println();
         System.out.println(message);
@@ -61,6 +65,14 @@ public class StringsCompAndFilters {
         personList.stream()
                 .min(Person::ageDifference)
                 .ifPresent(person -> System.out.println("Youngest " + person));
+
+
+        System.out.println();
+
+        //Comparing based on more than one condition.
+        personList.stream()
+                .sorted(Comparator.comparing(byAge).thenComparing(byName))
+                .forEach(System.out::println);
 
 
     }
