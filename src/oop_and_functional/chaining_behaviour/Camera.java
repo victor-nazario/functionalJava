@@ -10,12 +10,16 @@ import java.util.stream.Stream;
  *
  */
 public class Camera {
+    //In essence the usage of Function fields helps us remove the need of inheritance and using more classes.
+    //This replaces the need for a list of filters such as List<Filter>. Thus a filter func receives an original color
+    //and will return the color once the filter is applied.
     private Function<Color, Color> filter;
 
     public Camera() {
         setFilters();
     }
 
+    //Capture will apply the filter function to the given color, and return the color once processed.
     public Color capture(final Color inputColor) {
         final Color processedColor = filter.apply(inputColor);
         return processedColor;
